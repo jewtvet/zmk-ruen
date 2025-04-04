@@ -1,4 +1,4 @@
 build:
   cmake: .
   settings:
-    dts_root: .
+    dts_root: dts
