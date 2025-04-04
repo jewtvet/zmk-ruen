@@ -1,0 +1,5 @@
+description: Conditional key behavior that outputs different keys based on language state
+
+compatible: "zmk,behavior-conditional-key"
+
+include: one-param.yaml

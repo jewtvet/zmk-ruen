@@ -1,0 +1,5 @@
+description: Toggle language behavior for Russian/English switching
+
+compatible: "zmk,behavior-toggle-lang"
+
+include: one-param.yaml
