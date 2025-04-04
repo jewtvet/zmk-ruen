@@ -1,0 +1,15 @@
+/ {
+    behaviors {
+        toggle_lang: toggle_lang {
+            compatible = "zmk,behavior-toggle-lang";
+            #binding-cells = <0>;
+            label = "TOGGLE_LANG";
+        };
+        
+        conditional_key: conditional_key {
+            compatible = "zmk,behavior-conditional-key";
+            #binding-cells = <0>;
+            label = "CONDITIONAL_KEY";
+        };
+    };
+};
