@@ -108,7 +108,7 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 4. Add your new keys into the same keymap file. 
 5. Build and flash the firmware to your keyboard.
 
-# Russian
+# Русский
 
 Модуль `ruen` позволяет отправлять кейкоды независимо от выбранного языка и раскладки.
 
