@@ -33,7 +33,7 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 - `&ruen_one_key 1 LS(N3)` — in English layout sends `LShift+3` (`#`); in Russian: switch to English → `LShift+3` → switch back. Always yields `#`.  
 - `&ruen_one_key 0 LS(N3)` — in Russian layout sends `LShift+3` (`№`); in English: switch to Russian → `LShift+3` → switch back. Always yields `№`.  
 
-[More examples in my keymap](https://github.com/jewtvet-org/zmk-config-new/blob/main/config/cradio.keymap)
+[More examples in my keymap](https://github.com/jewtvet/zmk-cradio/blob/main/config/cradio.keymap)
 
 ## Usage on MacOS
 
@@ -143,7 +143,7 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 - `&ruen_one_key 1 LS(N3)` — при английской раскладке отправляет `LShift+3` (#); при русской — переключает на английский → отправляет `LShift+3` → возвращает русский. Всегда отправляет `#`.
 - `&ruen_one_key 0 LS(N3)` — при русской раскладке отправляет `LShift+3` (№); при английской — переключает на русский → отправляет `LShift+3` → возвращает английский. Всегда отправляет `№`.
 
-[Больше примеров в моей кеймапе](https://github.com/jewtvet-org/zmk-config-new/blob/main/config/cradio.keymap)
+[Больше примеров в моей кеймапе](https://github.com/jewtvet/zmk-cradio/blob/main/config/cradio.keymap)
 
 ## Использование с macOS
 
