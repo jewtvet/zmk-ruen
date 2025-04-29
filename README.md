@@ -57,19 +57,25 @@ Module `ruen` lets you send keycodes regardless of the active system language or
      self:
        path: config
    ```
-3. In your `config/<your-keyboard>.keymap`, under `behaviors`, add these entries, update `to_en` and `to_ru` to your own layout-switch hotkeys:
+3. In your `config/<your-keyboard>.conf` add these configs:
+   ```conf
+   CONFIG_SETTINGS=y
+   CONFIG_NVS=y
+   CONFIG_SETTINGS_NVS=y
+   ```
+4. In your `config/<your-keyboard>.keymap`, under `behaviors`, add these entries, update `to_en` and `to_ru` to your own layout-switch hotkeys:
    ```yaml
    ruen_one_key: ruen_one_key {
      compatible = "zmk,behavior-ruen-one-key";
      #binding-cells = <2>;
-     to_en = <0x8070025>;  # int code for your hotkey to switch to English (in this example: LG(N8))
-     to_ru = <0x8070026>;  # int code for your hotkey to switch to Russian (in this example: LG(N9))
+     to_en = <0x8070025>;  # uint32_t code for your hotkey to switch to English (in this example: LG(N8))
+     to_ru = <0x8070026>;  # uint32_t code for your hotkey to switch to Russian (in this example: LG(N9))
    };
    ```
-4. Add your new keys into the same keymap file.
-5. Add `&ruen_macos 1` to a distant key position in a rarely used layer.
-6. Build and flash the firmware to your keyboard.
-7. Press `&ruen_macos 1` to switch `ruen` to macOS compatibility mode.
+5. Add your new keys into the same keymap file.
+6. Add `&ruen_macos 1` to a distant key position in a rarely used layer.
+7. Build and flash the firmware to your keyboard.
+8. Once press `&ruen_macos 1` to switch `ruen` to macOS compatibility mode, the state will be saved in persistent storage.
 
 ## Usage on Windows & Linux
 
@@ -96,17 +102,23 @@ Module `ruen` lets you send keycodes regardless of the active system language or
      self:
        path: config
    ```
-3. In your `config/<your-keyboard>.keymap`, under `behaviors`, add these entries, update `to_en` and `to_ru` to your own layout-switch hotkeys:
+3. In your `config/<your-keyboard>.conf` add these configs:
+   ```conf
+   CONFIG_SETTINGS=y
+   CONFIG_NVS=y
+   CONFIG_SETTINGS_NVS=y
+   ```
+4. In your `config/<your-keyboard>.keymap`, under `behaviors`, add these entries, update `to_en` and `to_ru` to your own layout-switch hotkeys:
    ```yaml
    ruen_one_key: ruen_one_key {
      compatible = "zmk,behavior-ruen-one-key";
      #binding-cells = <2>;
-     to_en = <0x8070025>;  # int code for your hotkey to switch to English (in this example: LG(N8))
-     to_ru = <0x8070026>;  # int code for your hotkey to switch to Russian (in this example: LG(N9))
+     to_en = <0x8070025>;  # uint32_t code for your hotkey to switch to English (in this example: LG(N8))
+     to_ru = <0x8070026>;  # uint32_t code for your hotkey to switch to Russian (in this example: LG(N9))
    };
    ```
-4. Add your new keys into the same keymap file. 
-5. Build and flash the firmware to your keyboard.
+5. Add your new keys into the same keymap file. 
+6. Build and flash the firmware to your keyboard.
 
 # Русский
 
@@ -167,19 +179,25 @@ Module `ruen` lets you send keycodes regardless of the active system language or
      self:
        path: config
    ```
-3. В разделе `behaviors` в файле `config/<your-keyboard>.keymap` добавьте `ruen_one_key`:
+3. В файле `config/<your-keyboard>.conf` добавьте следующие конфигурации:
+   ```conf
+   CONFIG_SETTINGS=y
+   CONFIG_NVS=y
+   CONFIG_SETTINGS_NVS=y
+   ```
+4. В разделе `behaviors` в файле `config/<your-keyboard>.keymap` добавьте `ruen_one_key`:
    ```yaml
    ruen_one_key: ruen_one_key {
      compatible = "zmk,behavior-ruen-one-key";
      #binding-cells = <2>;
-     to_en = <0x8070025>; # int код вашего хоткея для переключения на английский (в этом примере LG(N8))
-     to_ru = <0x8070026>; # int код вашего хоткея для переключения на русский (в этом примере LG(N9))
+     to_en = <0x8070025>; # uint32_t код вашего хоткея для переключения на английский (в этом примере LG(N8))
+     to_ru = <0x8070026>; # uint32_t код вашего хоткея для переключения на русский (в этом примере LG(N9))
    };
    ```
-4. Добавьте новые клавиши в раскладку в том же файле.
-5. Добавьте `&ruen_macos 1` на удаленное место в редко используемом слое. 
-6. Соберите и загрузите прошивку на клавиатуру.
-7. Нажмите `&ruen_macos 1`, чтобы перевести `ruen` в режим совместимости с macOS.
+5. Добавьте новые клавиши в раскладку в том же файле.
+6. Добавьте `&ruen_macos 1` на удаленное место в редко используемом слое. 
+7. Соберите и загрузите прошивку на клавиатуру.
+8. Один раз нажмите `&ruen_macos 1`, чтобы перевести `ruen` в режим совместимости с macOS, это значение будет сохранено в постоянной памяти.
 
 ## Использование с Windows & Linux
 
@@ -206,14 +224,20 @@ Module `ruen` lets you send keycodes regardless of the active system language or
      self:
        path: config
    ```
-3. В разделе `behaviors` в файле `config/<your-keyboard>.keymap` добавьте `ruen_one_key`:
+3. В файле `config/<your-keyboard>.conf` добавьте следующие конфигурации:
+   ```conf
+   CONFIG_SETTINGS=y
+   CONFIG_NVS=y
+   CONFIG_SETTINGS_NVS=y
+   ```
+4. В разделе `behaviors` в файле `config/<your-keyboard>.keymap` добавьте `ruen_one_key`:
    ```yaml
    ruen_one_key: ruen_one_key {
      compatible = "zmk,behavior-ruen-one-key";
      #binding-cells = <2>;
-     to_en = <0x8070025>; # int код вашего хоткея для переключения на английский (в этом примере LG(N8))
-     to_ru = <0x8070026>; # int код вашего хоткея для переключения на русский (в этом примере LG(N9))
+     to_en = <0x8070025>; # uint32_t код вашего хоткея для переключения на английский (в этом примере LG(N8))
+     to_ru = <0x8070026>; # uint32_t код вашего хоткея для переключения на русский (в этом примере LG(N9))
    };
    ```
-4. Добавьте новые клавиши в раскладку в том же файле.
-5. Соберите и загрузите прошивку на клавиатуру.
+5. Добавьте новые клавиши в раскладку в том же файле.
+6. Соберите и загрузите прошивку на клавиатуру.
