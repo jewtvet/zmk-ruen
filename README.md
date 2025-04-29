@@ -187,8 +187,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    CONFIG_NVS=y
    CONFIG_SETTINGS_NVS=y
    ```
-3. В файле `config/<your-keyboard>.keymap`, добавьте `#include <behaviors/ruen.dtsi>` к остальным include.
-4. В том же файле, в разделе `behaviors` добавьте `ruen_one_key`:
+4. В файле `config/<your-keyboard>.keymap`, добавьте `#include <behaviors/ruen.dtsi>` к остальным include.
+5. В том же файле, в разделе `behaviors` добавьте `ruen_one_key`:
    ```yaml
    ruen_one_key: ruen_one_key {
      compatible = "zmk,behavior-ruen-one-key";
@@ -197,10 +197,10 @@ Module `ruen` lets you send keycodes regardless of the active system language or
      to_ru = <0x8070026>; # uint32_t код вашего хоткея для переключения на русский (в этом примере LG(N9))
    };
    ```
-5. Добавьте новые клавиши в раскладку в том же файле.
-6. Добавьте `&ruen_macos 1` на удаленное место в редко используемом слое. 
-7. Соберите и загрузите прошивку на клавиатуру.
-8. Один раз нажмите `&ruen_macos 1`, чтобы перевести `ruen` в режим совместимости с macOS, это значение будет сохранено в постоянной памяти.
+6. Добавьте новые клавиши в раскладку в том же файле.
+7. Добавьте `&ruen_macos 1` на удаленное место в редко используемом слое. 
+8. Соберите и загрузите прошивку на клавиатуру.
+9. Один раз нажмите `&ruen_macos 1`, чтобы перевести `ruen` в режим совместимости с macOS, это значение будет сохранено в постоянной памяти.
 
 ## Использование с Windows & Linux
 
