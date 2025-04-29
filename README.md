@@ -63,7 +63,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    CONFIG_NVS=y
    CONFIG_SETTINGS_NVS=y
    ```
-4. In your `config/<your-keyboard>.keymap`, under `behaviors`, add these entries, update `to_en` and `to_ru` to your own layout-switch hotkeys:
+4. In your `config/<your-keyboard>.keymap`, add `#include <behaviors/ruen.dtsi>` to other includes.
+5. In the same file, under `behaviors`, add these entries, update `to_en` and `to_ru` to your own layout-switch hotkeys:
    ```yaml
    ruen_one_key: ruen_one_key {
      compatible = "zmk,behavior-ruen-one-key";
@@ -72,10 +73,10 @@ Module `ruen` lets you send keycodes regardless of the active system language or
      to_ru = <0x8070026>;  # uint32_t code for your hotkey to switch to Russian (in this example: LG(N9))
    };
    ```
-5. Add your new keys into the same keymap file.
-6. Add `&ruen_macos 1` to a distant key position in a rarely used layer.
-7. Build and flash the firmware to your keyboard.
-8. Once press `&ruen_macos 1` to switch `ruen` to macOS compatibility mode, the state will be saved in persistent storage.
+6. Add your new keys into the same keymap file.
+7. Add `&ruen_macos 1` to a distant key position in a rarely used layer.
+8. Build and flash the firmware to your keyboard.
+9. Once press `&ruen_macos 1` to switch `ruen` to macOS compatibility mode, the state will be saved in persistent storage.
 
 ## Usage on Windows & Linux
 
@@ -108,7 +109,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    CONFIG_NVS=y
    CONFIG_SETTINGS_NVS=y
    ```
-4. In your `config/<your-keyboard>.keymap`, under `behaviors`, add these entries, update `to_en` and `to_ru` to your own layout-switch hotkeys:
+4. In your `config/<your-keyboard>.keymap`, add `#include <behaviors/ruen.dtsi>` to other includes.
+5. In the same file, under `behaviors`, add these entries, update `to_en` and `to_ru` to your own layout-switch hotkeys:
    ```yaml
    ruen_one_key: ruen_one_key {
      compatible = "zmk,behavior-ruen-one-key";
@@ -117,8 +119,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
      to_ru = <0x8070026>;  # uint32_t code for your hotkey to switch to Russian (in this example: LG(N9))
    };
    ```
-5. Add your new keys into the same keymap file. 
-6. Build and flash the firmware to your keyboard.
+6. Add your new keys into the same keymap file. 
+7. Build and flash the firmware to your keyboard.
 
 # Русский
 
@@ -185,7 +187,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    CONFIG_NVS=y
    CONFIG_SETTINGS_NVS=y
    ```
-4. В разделе `behaviors` в файле `config/<your-keyboard>.keymap` добавьте `ruen_one_key`:
+3. В файле `config/<your-keyboard>.keymap`, добавьте `#include <behaviors/ruen.dtsi>` к остальным include.
+4. В том же файле, в разделе `behaviors` добавьте `ruen_one_key`:
    ```yaml
    ruen_one_key: ruen_one_key {
      compatible = "zmk,behavior-ruen-one-key";
@@ -230,7 +233,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    CONFIG_NVS=y
    CONFIG_SETTINGS_NVS=y
    ```
-4. В разделе `behaviors` в файле `config/<your-keyboard>.keymap` добавьте `ruen_one_key`:
+4. В файле `config/<your-keyboard>.keymap`, добавьте `#include <behaviors/ruen.dtsi>` к остальным include.
+5. В том же файле, в разделе `behaviors` добавьте `ruen_one_key`:
    ```yaml
    ruen_one_key: ruen_one_key {
      compatible = "zmk,behavior-ruen-one-key";
@@ -239,5 +243,5 @@ Module `ruen` lets you send keycodes regardless of the active system language or
      to_ru = <0x8070026>; # uint32_t код вашего хоткея для переключения на русский (в этом примере LG(N9))
    };
    ```
-5. Добавьте новые клавиши в раскладку в том же файле.
-6. Соберите и загрузите прошивку на клавиатуру.
+6. Добавьте новые клавиши в раскладку в том же файле.
+7. Соберите и загрузите прошивку на клавиатуру.
