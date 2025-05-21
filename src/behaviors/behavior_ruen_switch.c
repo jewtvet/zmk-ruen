@@ -10,8 +10,8 @@
 #include <zephyr/kernel.h>
 
 struct behavior_ruen_switch_config {
-    const struct device *macro_to_en;
-    const struct device *macro_to_ru;
+    char *en_behavior_dev;
+    char *ru_behavior_dev;
 };
 
 static int on_ruen_switch_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
@@ -23,7 +23,7 @@ static int on_ruen_switch_released(struct zmk_behavior_binding *binding, struct 
     const struct behavior_ruen_switch_config *cfg = dev->config;
     uint8_t wait = zmk_ruen_get_macos() ? 50 : 5;
     bool is_eng = binding->param1 != 0;
-    const struct device *macro = is_eng ? cfg->macro_to_en : cfg->macro_to_ru;
+    const struct device *macro = is_eng ? cfg->en_behavior_dev : cfg->ru_behavior_dev;
     struct zmk_behavior_binding macro_binding = {.behavior_dev = macro};
     zmk_hid_keyboard_clear();
     zmk_endpoints_send_report(HID_USAGE_KEY);
@@ -41,8 +41,8 @@ static const struct behavior_driver_api behavior_ruen_switch_driver_api = {
 
 #define RUEN_SWITCH_INST(n)
     static const struct behavior_ruen_switch_config behavior_ruen_switch_config##n = { \
-        .macro_to_en = DEVICE_DT_GET(DT_PHANDLE(DT_DRV_INST(n), macro_to_en)),               \
-        .macro_ru = DEVICE_DT_GET(DT_PHANDLE(DT_DRV_INST(n), macro_to_ru)),               \
+        .en_behavior_dev = DEVICE_DT_NAME(DT_INST_PHANDLE_BY_IDX(n, bindings, 0)),     \
+        .ru_behavior_dev = DEVICE_DT_NAME(DT_INST_PHANDLE_BY_IDX(n, bindings, 1)),     \
     };                                                                                 \
     BEHAVIOR_DT_INST_DEFINE(n, NULL, NULL, NULL, NULL, POST_KERNEL, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &behavior_ruen_switch_driver_api);
 DT_INST_FOREACH_STATUS_OKAY(RUEN_SWITCH_INST)
