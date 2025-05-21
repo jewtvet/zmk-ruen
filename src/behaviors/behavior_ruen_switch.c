@@ -38,10 +38,10 @@ static const struct behavior_driver_api behavior_ruen_switch_driver_api = {
     .binding_released = on_ruen_switch_released,
 };
 
-#define RUEN_SWITCH_INST(n)
-    static const struct behavior_ruen_switch_config behavior_ruen_switch_config##n = { \
-        .en_behavior_dev = DEVICE_DT_NAME(DT_INST_PHANDLE_BY_IDX(n, bindings, 0)),     \
-        .ru_behavior_dev = DEVICE_DT_NAME(DT_INST_PHANDLE_BY_IDX(n, bindings, 1)),     \
-    };                                                                                 \
-    BEHAVIOR_DT_INST_DEFINE(n, NULL, NULL, NULL, NULL, POST_KERNEL, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &behavior_ruen_switch_driver_api);
+#define RUEN_SWITCH_INST(n)                                                             \
+    static const struct behavior_ruen_switch_config behavior_ruen_switch_config_##n = { \
+        .en_behavior_dev = DEVICE_DT_NAME(DT_INST_PHANDLE_BY_IDX(n, bindings, 0)),      \
+        .ru_behavior_dev = DEVICE_DT_NAME(DT_INST_PHANDLE_BY_IDX(n, bindings, 1)),      \
+    };                                                                                  \
+    BEHAVIOR_DT_INST_DEFINE(n, NULL, NULL, NULL, &behavior_ruen_switch_config_##n, POST_KERNEL, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &behavior_ruen_switch_driver_api);
 DT_INST_FOREACH_STATUS_OKAY(RUEN_SWITCH_INST)
