@@ -9,11 +9,11 @@
 #include <zmk/endpoints.h>
 #include <zephyr/kernel.h>
 
-#define MACRO_EN_NODE DT_CHILD(DT_PATH(macros), ruen_to_en)
-#define MACRO_RU_NODE DT_CHILD(DT_PATH(macros), ruen_to_ru)
+#define MACRO_EN_DEVICE DEVICE_DT_GET(DT_PATH(macros, ruen_to_en))
+#define MACRO_RU_DEVICE DEVICE_DT_GET(DT_PATH(macros, ruen_to_ru))
 
-static const struct device * const macro_to_en = DEVICE_DT_GET(MACRO_EN_NODE);
-static const struct device * const macro_to_ru = DEVICE_DT_GET(MACRO_RU_NODE);
+static const struct device * const macro_to_en = MACRO_EN_DEVICE;
+static const struct device * const macro_to_ru = MACRO_RU_DEVICE;
 
 static int on_ruen_switch_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
     return ZMK_BEHAVIOR_OPAQUE;
