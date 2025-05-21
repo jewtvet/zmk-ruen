@@ -9,6 +9,9 @@
 #include <zmk/endpoints.h>
 #include <zephyr/kernel.h>
 
+static const struct device * const macro_to_en = DEVICE_DT_GET(DT_NODELABEL(ruen_to_en));
+static const struct device * const macro_to_ru = DEVICE_DT_GET(DT_NODELABEL(ruen_to_ru));
+
 static int on_ruen_switch_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
     return ZMK_BEHAVIOR_OPAQUE;
 }
@@ -16,13 +19,13 @@ static int on_ruen_switch_pressed(struct zmk_behavior_binding *binding, struct z
 static int on_ruen_switch_released(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
     uint8_t wait = zmk_ruen_get_macos() ? 50 : 5;
     bool is_eng = binding->param1 != 0;
-    uint32_t code = binding->param2;
     zmk_hid_keyboard_clear();
     zmk_endpoints_send_report(HID_USAGE_KEY);
     zmk_ruen_set_eng(is_eng);
-    raise_zmk_keycode_state_changed_from_encoded(code, true, event.timestamp);
-    k_msleep(5);
-    raise_zmk_keycode_state_changed_from_encoded(code, false, event.timestamp + 5);
+    const struct device *macro = is_eng ? macro_to_en : macro_to_ru;
+    struct zmk_behavior_binding macro_binding = {.behavior_dev = macro, .param1 = 0, .param2 = 0,};
+    zmk_behavior_invoke_binding(&macro_binding, event, true);
+    zmk_behavior_invoke_binding(&macro_binding, event, false);
     k_msleep(wait);
     return ZMK_BEHAVIOR_OPAQUE;
 }
