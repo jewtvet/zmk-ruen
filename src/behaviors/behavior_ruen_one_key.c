@@ -36,9 +36,8 @@ static int on_ruen_one_key_released(struct zmk_behavior_binding *binding, struct
         zmk_endpoints_send_report(HID_USAGE_KEY);
         zmk_ruen_set_eng(need);
         zmk_behavior_invoke_binding(&macro_binding1, event, true);
-        zmk_behavior_invoke_binding(&macro_binding1, event, false);
-        k_msleep(wait);
-        event.timestamp += wait;
+        k_msleep(wait + 10);
+        event.timestamp += wait + 10;
         raise_zmk_keycode_state_changed_from_encoded(encoded, true, event.timestamp);
         k_msleep(5);
         event.timestamp += 5;
@@ -49,8 +48,7 @@ static int on_ruen_one_key_released(struct zmk_behavior_binding *binding, struct
         zmk_endpoints_send_report(HID_USAGE_KEY);
         zmk_ruen_set_eng(!need);    
         zmk_behavior_invoke_binding(&macro_binding2, event, true);
-        zmk_behavior_invoke_binding(&macro_binding2, event, false);
-        k_msleep(wait);
+        k_msleep(wait + 10);
     }
     return ZMK_BEHAVIOR_OPAQUE;
 }

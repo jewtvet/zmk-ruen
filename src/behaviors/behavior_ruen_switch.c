@@ -28,8 +28,7 @@ static int on_ruen_switch_released(struct zmk_behavior_binding *binding, struct 
     zmk_endpoints_send_report(HID_USAGE_KEY);
     zmk_ruen_set_eng(is_eng);
     zmk_behavior_invoke_binding(&macro_binding, event, true);
-    zmk_behavior_invoke_binding(&macro_binding, event, false);
-    k_msleep(wait);
+    k_msleep(wait + 10);
     return ZMK_BEHAVIOR_OPAQUE;
 }
 
