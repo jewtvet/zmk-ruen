@@ -3,3 +3,21 @@ description: RuEn lang switch behavior
 compatible: "zmk,behavior-ruen-switch"
 
 include: one_param.yaml
+
+properties:
+  macro-to-en:
+    description: Phandle to the “to English” macro behavior
+    type: phandle
+  macro-to-ru:
+    description: Phandle to the “to Russian” macro behavior
+    type: phandle
+
+phandle-properties:
+  - macro-to-en
+  - macro-to-ru
+
+phandle-names:
+  - macro-to-en
+  - macro-to-ru
+
+additionalProperties: false
