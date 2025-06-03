@@ -42,19 +42,15 @@ static int on_ruen_switch_released(struct zmk_behavior_binding *binding, struct 
     const struct behavior_macro_config *macro_cfg = (const struct behavior_macro_config *)macro_dev->config;
     const struct zmk_behavior_binding *bindings = macro_cfg->bindings;
     int count = (int)macro_cfg->count;
-    const struct device *kp_dev = zmk_behavior_get_binding("kp");
     for (int i = 0; i < count; i++) {
         const struct zmk_behavior_binding *b = &bindings[i];
-        const struct device *b_dev = zmk_behavior_get_binding(b->behavior_dev);
-        if (b_dev == kp_dev) {
-            uint32_t keycode = b->param1;
-            raise_zmk_keycode_state_changed_from_encoded(keycode, true, event.timestamp);
-            k_msleep(5);
-            event.timestamp += 5;
-            raise_zmk_keycode_state_changed_from_encoded(keycode, false, event.timestamp);
-            k_msleep(5);
-            event.timestamp += 5;
-        }
+        uint32_t keycode = b->param1;
+        raise_zmk_keycode_state_changed_from_encoded(keycode, true, event.timestamp);
+        k_msleep(5);
+        event.timestamp += 5;
+        raise_zmk_keycode_state_changed_from_encoded(keycode, false, event.timestamp);
+        k_msleep(5);
+        event.timestamp += 5;
     }
     k_msleep(wait);
     return ZMK_BEHAVIOR_OPAQUE;
