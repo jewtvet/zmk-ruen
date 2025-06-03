@@ -8,7 +8,6 @@
 #include <zmk/events/keycode_state_changed.h>
 #include <zmk/endpoints.h>
 #include <zephyr/kernel.h>
-#include <zmk/behaviors/macro.h>
 
 struct behavior_ruen_switch_config {
     char *en_behavior_dev;
