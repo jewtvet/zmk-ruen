@@ -15,6 +15,13 @@ struct behavior_ruen_switch_config {
     char *ru_behavior_dev;
 };
 
+struct behavior_macro_config {
+    uint32_t default_wait_ms;
+    uint32_t default_tap_ms;
+    uint32_t count;
+    struct zmk_behavior_binding bindings[];
+};
+
 static int on_ruen_switch_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
     return ZMK_BEHAVIOR_OPAQUE;
 }
@@ -33,9 +40,9 @@ static int on_ruen_switch_released(struct zmk_behavior_binding *binding, struct 
     // raise_zmk_keycode_state_changed_from_encoded(code, false, event.timestamp + 5);
     const char *selected_macro = is_eng ? cfg->en_behavior_dev : cfg->ru_behavior_dev;
     const struct device *macro_dev = zmk_behavior_get_binding(selected_macro);
-    const struct behavior_macro_config *macro_cfg = macro_dev->config;
+    const struct behavior_macro_config *macro_cfg = (const struct behavior_macro_config *)macro_dev->config;
     const struct zmk_behavior_binding *bindings = macro_cfg->bindings;
-    int count = macro_cfg->binding_count;
+    int count = (int)macro_cfg->count;
     const struct device *kp_dev = zmk_behavior_get_binding("kp");
     for (int i = 0; i < count; i++) {
         const struct zmk_behavior_binding *b = &bindings[i];
