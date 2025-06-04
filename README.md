@@ -7,18 +7,17 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 
 ## New behaviors
 
-- `&ruen_switch <0/1> <hotkey>` — switch both the system layout and the internal keyboard layout according to your configuration:  
-  - `0`: internal layout → Russian  
-  - `1`: internal layout → English  
-  - `hotkey`: the system‐level shortcut to change the layout  
+- `&ruen_switch <0/1>` — switch both the system layout and the internal keyboard layout according to your configuration:  
+  - `0`: layout → Russian  
+  - `1`: layout → English  
 
 - `&ruen_key <en_key> <ru_key>` — send `en_key` if the active language is English, or `ru_key` if it’s Russian:  
   - `en_key`: keycode to send in English layout  
   - `ru_key`: keycode to send in Russian layout  
 
 - `&ruen_one_key <0/1> <key>` — if the current language matches your configuration, send `key`; otherwise, perform: switch → send `key` → switch back:  
-  - `0`: priority → Russian  
-  - `1`: priority → English  
+  - `0`: send in Russian  
+  - `1`: send in English  
   - `key`: the keycode to send  
 
 ## Examples
@@ -26,10 +25,10 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 > [!NOTE]  
 > Examples assume macOS with English and Russian layouts.
 
-- `&ruen_switch 0 LG(N9)` — internal keyboard switches to Russian; sends `LGui+9` to switch the system to Russian.  
-- `&ruen_switch 1 LG(N8)` — internal keyboard switches to English; sends `LGui+8` to switch the system to English.  
+- `&ruen_switch 0` — internal keyboard layout switches to Russian; sends the special hotkey to switch the system to Russian.  
+- `&ruen_switch 1` — internal keyboard layout switches to English; sends the special hotkey to switch the system to English.  
 - `&ruen_key LS(N5) LS(N4)` — in English layout sends `LShift+5` (prints `%`), in Russian layout sends `LShift+4` (also prints `%`). Always yields `%`.  
-- `&ruen_key Q W` — in English layout sends `Q`, in Russian layout sends `W` (Ц). Lets you combine Colemak and the “Dictor” (Russian alternative layout) layouts in one layer without changing system settings.  
+- `&ruen_key Q W` — in English layout sends `Q`, in Russian layout sends `W` (Ц). Lets you combine Colemak and the “Dictor” (Russian alternative layout) layouts in one layer without changing system layouts.  
 - `&ruen_one_key 1 LS(N3)` — in English layout sends `LShift+3` (`#`); in Russian: switch to English → `LShift+3` → switch back. Always yields `#`.  
 - `&ruen_one_key 0 LS(N3)` — in Russian layout sends `LShift+3` (`№`); in English: switch to Russian → `LShift+3` → switch back. Always yields `№`.  
 
@@ -37,7 +36,7 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 
 ## Usage on MacOS
 
-1. Install **MLSwitcher2** from Mac AppStore and configure separate hotkeys for Russian and English layouts.  
+1. Install **MLSwitcher2** from Mac App Store and configure separate hotkeys for Russian and English layouts.  
 2. In your `config/west.yml`, add these entries under `remotes` and `projects`:
    ```yaml
    manifest:
@@ -64,15 +63,27 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    CONFIG_SETTINGS_NVS=y
    ```
 4. In your `config/<your-keyboard>.keymap`, add `#include <behaviors/ruen.dtsi>` to other includes.
-5. In the same file, under `behaviors`, add these entries, update `to_en` and `to_ru` to your own layout-switch hotkeys:
+5. In the same file, under `macros`, add these entries, update bindings to your own layout-switch hotkeys:
    ```yaml
-   ruen_one_key: ruen_one_key {
-     compatible = "zmk,behavior-ruen-one-key";
-     #binding-cells = <2>;
-     to_en = <0x8070025>;  # uint32_t code for your hotkey to switch to English (in this example: LG(N8))
-     to_ru = <0x8070026>;  # uint32_t code for your hotkey to switch to Russian (in this example: LG(N9))
+   ruen_to_en: ruen_to_en {
+       compatible = "zmk,behavior-macro";
+       #binding-cells = <0>;
+       bindings = <&kp LG(N8)>; // Your hotkey to switch to English
+   }; 
+
+   ruen_to_ru: ruen_to_ru {
+       compatible = "zmk,behavior-macro";
+       #binding-cells = <0>;
+       bindings = <&kp LG(N9)>; // Your hotkey to switch to Russian
    };
    ```
+   Tip: You can include multiple `&kp` entries in the `bindings` section if you need to send several different hotkeys - for example, one for your primary macOS machine and another for a Windows machine accessed via RDP:
+   ```yaml
+   bindings = <&kp LG(N5)>, <&kp LG(N6)>;
+   ```
+   In this case, LG(N5) will be sent first, and after a 5 ms delay, LG(N6) will be sent.
+> [!WARNING]  
+> Do NOT include anything other than &kp in bindings; any other devices will be ignored.
 6. Add your new keys into the same keymap file.
 7. Add `&ruen_macos 1` to a distant key position in a rarely used layer.
 8. Build and flash the firmware to your keyboard.
@@ -110,15 +121,27 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    CONFIG_SETTINGS_NVS=y
    ```
 4. In your `config/<your-keyboard>.keymap`, add `#include <behaviors/ruen.dtsi>` to other includes.
-5. In the same file, under `behaviors`, add these entries, update `to_en` and `to_ru` to your own layout-switch hotkeys:
+5. In the same file, under `macros`, add these entries, update bindings to your own layout-switch hotkeys:
    ```yaml
-   ruen_one_key: ruen_one_key {
-     compatible = "zmk,behavior-ruen-one-key";
-     #binding-cells = <2>;
-     to_en = <0x8070025>;  # uint32_t code for your hotkey to switch to English (in this example: LG(N8))
-     to_ru = <0x8070026>;  # uint32_t code for your hotkey to switch to Russian (in this example: LG(N9))
+   ruen_to_en: ruen_to_en {
+       compatible = "zmk,behavior-macro";
+       #binding-cells = <0>;
+       bindings = <&kp LG(N8)>; // Your hotkey to switch to English
+   }; 
+
+   ruen_to_ru: ruen_to_ru {
+       compatible = "zmk,behavior-macro";
+       #binding-cells = <0>;
+       bindings = <&kp LG(N9)>; // Your hotkey to switch to Russian
    };
    ```
+   Tip: You can include multiple `&kp` entries in the `bindings` section if you need to send several different hotkeys - for example, one for your primary macOS machine and another for a Windows machine accessed via RDP:
+   ```yaml
+   bindings = <&kp LG(N5)>, <&kp LG(N6)>;
+   ```
+   In this case, LG(N5) will be sent first, and after a 5 ms delay, LG(N6) will be sent.
+> [!WARNING]  
+> Do NOT include anything other than &kp in bindings; any other devices will be ignored.
 6. Add your new keys into the same keymap file. 
 7. Build and flash the firmware to your keyboard.
 
@@ -131,18 +154,17 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 
 ## Новые behaviors
 
-- `&ruen_switch <0/1> <hotkey>` — переключает язык в системе и в клавиатуре согласно настройке:
-  - `0`: внутренняя раскладка клавиатуры — русский
-  - `1`: внутренняя раскладка клавиатуры — английский
-  - `hotkey`: хоткей для смены раскладки в системе
+- `&ruen_switch <0/1>` — переключает язык в системе и в клавиатуре согласно настройке:
+  - `0`: раскладка — русский
+  - `1`: раскладка — английский
 
 - `&ruen_key <en_key> <ru_key>` — отправляет `en_key`, если текущий язык — английский, и `ru_key`, если текущий язык — русский:
-  - `en_key`: клавиша для английской раскладки
-  - `ru_key`: клавиша для русской раскладки
+  - `en_key`: клавиша при английской раскладке
+  - `ru_key`: клавиша при русской раскладке
 
 - `&ruen_one_key <0/1> <key>` — если текущий язык совпадает с выбранным при конфигурации, отправляет `key`; иначе выполняет: смена языка → отправка `key` → возвращение языка:
-  - `0`: приоритет — русский язык
-  - `1`: приоритет — английский язык
+  - `0`: при русской раскладке
+  - `1`: при английской раскладке
   - `key`: отправляемая клавиша
 
 ## Примеры использования
@@ -150,8 +172,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 > [!NOTE]
 > Примеры приведены для macOS с раскладками English и Russian.
 
-- `&ruen_switch 0 LG(N9)` — внутренняя раскладка клавиатуры меняется на русский, отправляет `LGui+9` для переключения на русский в системе.
-- `&ruen_switch 1 LG(N8)` — внутренняя раскладка клавиатуры меняется на английский, отправляет `LGui+8` для переключения на английский в системе.
+- `&ruen_switch 0` — внутренняя раскладка клавиатуры меняется на русский, отправляет особый хоткей для переключения на русский в системе.
+- `&ruen_switch 1` — внутренняя раскладка клавиатуры меняется на английский, отправляет особый хоткей для переключения на английский в системе.
 - `&ruen_key LS(N5) LS(N4)` — при английской раскладке отправляет `LShift+5` (% в английской), при русской — `LShift+4` (% в русской). Всегда отправляет `%`.
 - `&ruen_key Q W` — при английской раскладке отправляет `Q`, при русской — `W` (Ц). Позволяет объединить Colemak и "Диктор" раскладки в одном слое без изменения системных раскладок.
 - `&ruen_one_key 1 LS(N3)` — при английской раскладке отправляет `LShift+3` (#); при русской — переключает на английский → отправляет `LShift+3` → возвращает русский. Всегда отправляет `#`.
@@ -161,7 +183,7 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 
 ## Использование с macOS
 
-1. Установите **MLSwitcher2** из Mac App Store и настройте отдельные хоткеи для русской и английской раскладок.
+1. Установите **MLSwitcher2** из Mac App Store и настройте отдельные хоткеи для русской и английской раскладок.
 2. Добавьте следующие записи в `remotes` и `projects` в файле `config/west.yml`:
    ```yaml
    manifest:
@@ -188,15 +210,27 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    CONFIG_SETTINGS_NVS=y
    ```
 4. В файле `config/<your-keyboard>.keymap`, добавьте `#include <behaviors/ruen.dtsi>` к остальным include.
-5. В том же файле, в разделе `behaviors` добавьте `ruen_one_key`:
+5. В том же файле, в разделе `macros` добавьте `ruen_to_en` и `ruen_to_ru`:
    ```yaml
-   ruen_one_key: ruen_one_key {
-     compatible = "zmk,behavior-ruen-one-key";
-     #binding-cells = <2>;
-     to_en = <0x8070025>; # uint32_t код вашего хоткея для переключения на английский (в этом примере LG(N8))
-     to_ru = <0x8070026>; # uint32_t код вашего хоткея для переключения на русский (в этом примере LG(N9))
+   ruen_to_en: ruen_to_en {
+       compatible = "zmk,behavior-macro";
+       #binding-cells = <0>;
+       bindings = <&kp LG(N8)>; // Ваш хоткей для переключения на английский
+   }; 
+
+   ruen_to_ru: ruen_to_ru {
+       compatible = "zmk,behavior-macro";
+       #binding-cells = <0>;
+       bindings = <&kp LG(N9)>; // Ваш хоткей для переключения на русский
    };
    ```
+   Совет: Вы можете включать несколько `&kp` в список `bindings`, если нужно отправить несколько хоткеев — например, один для основной машины под macOS и другой для Windows-машины, к которой вы подключаетесь через RDP:
+   ```yaml
+   bindings = <&kp LG(N5)>, <&kp LG(N6)>;
+   ```
+   В этом случае сначала будет отправлен `LG(N5)`, и через 5 мс — `LG(N6)`.
+> [!WARNING]
+> Не включайте ничего, кроме `&kp` в `bindings`; любые другие девайсы будут игнорироваться.
 6. Добавьте новые клавиши в раскладку в том же файле.
 7. Добавьте `&ruen_macos 1` на удаленное место в редко используемом слое. 
 8. Соберите и загрузите прошивку на клавиатуру.
@@ -234,14 +268,26 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    CONFIG_SETTINGS_NVS=y
    ```
 4. В файле `config/<your-keyboard>.keymap`, добавьте `#include <behaviors/ruen.dtsi>` к остальным include.
-5. В том же файле, в разделе `behaviors` добавьте `ruen_one_key`:
+5. В том же файле, в разделе `macros` добавьте `ruen_to_en` и `ruen_to_ru`:
    ```yaml
-   ruen_one_key: ruen_one_key {
-     compatible = "zmk,behavior-ruen-one-key";
-     #binding-cells = <2>;
-     to_en = <0x8070025>; # uint32_t код вашего хоткея для переключения на английский (в этом примере LG(N8))
-     to_ru = <0x8070026>; # uint32_t код вашего хоткея для переключения на русский (в этом примере LG(N9))
+   ruen_to_en: ruen_to_en {
+       compatible = "zmk,behavior-macro";
+       #binding-cells = <0>;
+       bindings = <&kp LG(N8)>; // Ваш хоткей для переключения на английский
+   }; 
+
+   ruen_to_ru: ruen_to_ru {
+       compatible = "zmk,behavior-macro";
+       #binding-cells = <0>;
+       bindings = <&kp LG(N9)>; // Ваш хоткей для переключения на русский
    };
    ```
+   Совет: Вы можете включать несколько `&kp` в список `bindings`, если нужно отправить несколько хоткеев — например, один для основной машины под macOS и другой для Windows-машины, к которой вы подключаетесь через RDP:
+   ```yaml
+   bindings = <&kp LG(N5)>, <&kp LG(N6)>;
+   ```
+   В этом случае сначала будет отправлен `LG(N5)`, а через 5 мс — `LG(N6)`.
+> [!WARNING]
+> Не включайте ничего, кроме `&kp` в `bindings`; любые другие девайсы будут игнорироваться.
 6. Добавьте новые клавиши в раскладку в том же файле.
 7. Соберите и загрузите прошивку на клавиатуру.

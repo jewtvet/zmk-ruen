@@ -5,11 +5,6 @@ compatible: "zmk,behavior-ruen-one-key"
 include: two_param.yaml
 
 properties:
-  to_en:
-    type: int
+  bindings:
+    type: phandles
     required: true
-    description: To English hotkey
-  to_ru:
-    type: int
-    required: true
-    description: To Russian hotkey
