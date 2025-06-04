@@ -31,13 +31,9 @@ static int on_ruen_switch_released(struct zmk_behavior_binding *binding, struct 
     const struct behavior_ruen_switch_config *cfg = dev->config;
     uint8_t wait = zmk_ruen_get_macos() ? 46 : 1;
     bool is_eng = binding->param1 != 0;
-    // uint32_t code = binding->param2;
     zmk_hid_keyboard_clear();
     zmk_endpoints_send_report(HID_USAGE_KEY);
     zmk_ruen_set_eng(is_eng);
-    // raise_zmk_keycode_state_changed_from_encoded(code, true, event.timestamp);
-    // k_msleep(5);
-    // raise_zmk_keycode_state_changed_from_encoded(code, false, event.timestamp + 5);
     const char *selected_macro = is_eng ? cfg->en_behavior_dev : cfg->ru_behavior_dev;
     const struct device *macro_dev = zmk_behavior_get_binding(selected_macro);
     const struct behavior_macro_config *macro_cfg = (const struct behavior_macro_config *)macro_dev->config;

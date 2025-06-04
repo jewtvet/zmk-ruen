@@ -18,7 +18,7 @@
         };
         ruen_switch: ruen_switch {
             compatible = "zmk,behavior-ruen-switch";
-            #binding-cells = <2>;
+            #binding-cells = <1>;
             bindings = <&ruen_to_en>, <&ruen_to_ru>;
         };
     };
