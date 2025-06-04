@@ -82,8 +82,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    bindings = <&kp LG(N5)>, <&kp LG(N6)>;
    ```
    In this case, LG(N5) will be sent first, and after a 5 ms delay, LG(N6) will be sent.
-   > [!WARNING]  
-   > Do NOT include anything other than &kp in bindings; any other devices will be ignored.
+> [!WARNING]  
+> Do NOT include anything other than &kp in bindings; any other devices will be ignored.
 6. Add your new keys into the same keymap file.
 7. Add `&ruen_macos 1` to a distant key position in a rarely used layer.
 8. Build and flash the firmware to your keyboard.
@@ -140,8 +140,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    bindings = <&kp LG(N5)>, <&kp LG(N6)>;
    ```
    In this case, LG(N5) will be sent first, and after a 5 ms delay, LG(N6) will be sent.
-   > [!WARNING]  
-   > Do NOT include anything other than &kp in bindings; any other devices will be ignored.
+> [!WARNING]  
+> Do NOT include anything other than &kp in bindings; any other devices will be ignored.
 6. Add your new keys into the same keymap file. 
 7. Build and flash the firmware to your keyboard.
 
@@ -229,8 +229,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    bindings = <&kp LG(N5)>, <&kp LG(N6)>;
    ```
    В этом случае сначала будет отправлен `LG(N5)`, и через 5 мс — `LG(N6)`.
-   > [!WARNING]
-   > Не включайте ничего, кроме `&kp` в `bindings`; любые другие девайсы будут игнорироваться.
+> [!WARNING]
+> Не включайте ничего, кроме `&kp` в `bindings`; любые другие девайсы будут игнорироваться.
 6. Добавьте новые клавиши в раскладку в том же файле.
 7. Добавьте `&ruen_macos 1` на удаленное место в редко используемом слое. 
 8. Соберите и загрузите прошивку на клавиатуру.
@@ -287,7 +287,7 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    bindings = <&kp LG(N5)>, <&kp LG(N6)>;
    ```
    В этом случае сначала будет отправлен `LG(N5)`, а через 5 мс — `LG(N6)`.
-   > [!WARNING]
-   > Не включайте ничего, кроме `&kp` в `bindings`; любые другие девайсы будут игнорироваться.
+> [!WARNING]
+> Не включайте ничего, кроме `&kp` в `bindings`; любые другие девайсы будут игнорироваться.
 6. Добавьте новые клавиши в раскладку в том же файле.
 7. Соберите и загрузите прошивку на клавиатуру.
