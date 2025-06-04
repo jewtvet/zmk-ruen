@@ -29,7 +29,7 @@ static int on_ruen_one_key_released(struct zmk_behavior_binding *binding, struct
         raise_zmk_keycode_state_changed_from_encoded(encoded, false, event.timestamp + 5);
     } else {
         const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
-        const struct ruen_one_key_config *cfg = dev->config;
+        const struct behavior_ruen_one_key_config *cfg = dev->config;
         const char *selected_macro1 = need ? cfg->en_behavior_dev : cfg->ru_behavior_dev;
         const char *selected_macro2 = need ? cfg->ru_behavior_dev : cfg->en_behavior_dev;
         zmk_hid_keyboard_clear();
