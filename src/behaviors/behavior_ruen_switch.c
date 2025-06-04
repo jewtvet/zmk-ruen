@@ -1,6 +1,7 @@
 #define DT_DRV_COMPAT zmk_behavior_ruen_switch
 
 #include <zephyr/device.h>
+#include <zephyr/devicetree.h>
 #include <drivers/behavior.h>
 #include <zmk/behavior.h>
 #include <zmk/hid.h>
