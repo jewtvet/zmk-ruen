@@ -44,6 +44,9 @@ static int on_ruen_switch_released(struct zmk_behavior_binding *binding, struct 
     const struct zmk_behavior_binding *bindings = macro_cfg->bindings;
     int count = (int)macro_cfg->count;
     const struct device *kp_dev = DEVICE_DT_GET(DT_NODELABEL(kp));
+    if (!device_is_ready(kp_dev)) {
+        return ZMK_BEHAVIOR_OPAQUE;
+    }
     for (int i = 0; i < count; i++) {
         const struct zmk_behavior_binding *b = &bindings[i];
         const struct device *b_dev = zmk_behavior_get_binding(b->behavior_dev);
