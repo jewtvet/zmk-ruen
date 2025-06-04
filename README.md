@@ -16,8 +16,8 @@ Module `ruen` lets you send keycodes regardless of the active system language or
   - `ru_key`: keycode to send in Russian layout  
 
 - `&ruen_one_key <0/1> <key>` — if the current language matches your configuration, send `key`; otherwise, perform: switch → send `key` → switch back:  
-  - `0`: priority → Russian  
-  - `1`: priority → English  
+  - `0`: send in Russian  
+  - `1`: send in English  
   - `key`: the keycode to send  
 
 ## Examples
@@ -36,7 +36,7 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 
 ## Usage on MacOS
 
-1. Install **MLSwitcher2** from Mac AppStore and configure separate hotkeys for Russian and English layouts.  
+1. Install **MLSwitcher2** from Mac App Store and configure separate hotkeys for Russian and English layouts.  
 2. In your `config/west.yml`, add these entries under `remotes` and `projects`:
    ```yaml
    manifest:
@@ -77,7 +77,7 @@ Module `ruen` lets you send keycodes regardless of the active system language or
        bindings = <&kp LG(N9)>; // Your hotkey to switch to Russian
    };
    ```
-   Tip: You can include multiple `&kp` entries in the `bindings` section if you need to send two different hotkeys - for example, one for your primary macOS machine and another for a Windows machine accessed via RDP:
+   Tip: You can include multiple `&kp` entries in the `bindings` section if you need to send several different hotkeys - for example, one for your primary macOS machine and another for a Windows machine accessed via RDP:
    ```yaml
    bindings = <&kp LG(N5)>, <&kp LG(N6)>;
    ```
@@ -135,7 +135,7 @@ Module `ruen` lets you send keycodes regardless of the active system language or
        bindings = <&kp LG(N9)>; // Your hotkey to switch to Russian
    };
    ```
-   Tip: You can include multiple `&kp` entries in the `bindings` section if you need to send two different hotkeys - for example, one for your primary macOS machine and another for a Windows machine accessed via RDP:
+   Tip: You can include multiple `&kp` entries in the `bindings` section if you need to send several different hotkeys - for example, one for your primary macOS machine and another for a Windows machine accessed via RDP:
    ```yaml
    bindings = <&kp LG(N5)>, <&kp LG(N6)>;
    ```
@@ -159,12 +159,12 @@ Module `ruen` lets you send keycodes regardless of the active system language or
   - `1`: раскладка — английский
 
 - `&ruen_key <en_key> <ru_key>` — отправляет `en_key`, если текущий язык — английский, и `ru_key`, если текущий язык — русский:
-  - `en_key`: клавиша для английской раскладки
-  - `ru_key`: клавиша для русской раскладки
+  - `en_key`: клавиша при английской раскладке
+  - `ru_key`: клавиша при русской раскладке
 
 - `&ruen_one_key <0/1> <key>` — если текущий язык совпадает с выбранным при конфигурации, отправляет `key`; иначе выполняет: смена языка → отправка `key` → возвращение языка:
-  - `0`: приоритет — русский язык
-  - `1`: приоритет — английский язык
+  - `0`: при русской раскладке
+  - `1`: при английской раскладке
   - `key`: отправляемая клавиша
 
 ## Примеры использования
@@ -183,7 +183,7 @@ Module `ruen` lets you send keycodes regardless of the active system language or
 
 ## Использование с macOS
 
-1. Установите **MLSwitcher2** из Mac App Store и настройте отдельные хоткеи для русской и английской раскладок.
+1. Установите **MLSwitcher2** из Mac App Store и настройте отдельные хоткеи для русской и английской раскладок.
 2. Добавьте следующие записи в `remotes` и `projects` в файле `config/west.yml`:
    ```yaml
    manifest:
@@ -215,22 +215,22 @@ Module `ruen` lets you send keycodes regardless of the active system language or
    ruen_to_en: ruen_to_en {
        compatible = "zmk,behavior-macro";
        #binding-cells = <0>;
-       bindings = <&kp LG(N8)>; // Your hotkey to switch to English
+       bindings = <&kp LG(N8)>; // Ваш хоткей для переключения на английский
    }; 
 
    ruen_to_ru: ruen_to_ru {
        compatible = "zmk,behavior-macro";
        #binding-cells = <0>;
-       bindings = <&kp LG(N9)>; // Your hotkey to switch to Russian
+       bindings = <&kp LG(N9)>; // Ваш хоткей для переключения на русский
    };
    ```
-   Совет: Вы можете включать несколько `&kp` в список `bindings`, если нужно отправить два разных хоткея — например, один для основной машины под macOS и другой для Windows-машины, к которой вы подключаетесь через RDP:
+   Совет: Вы можете включать несколько `&kp` в список `bindings`, если нужно отправить несколько хоткеев — например, один для основной машины под macOS и другой для Windows-машины, к которой вы подключаетесь через RDP:
    ```yaml
    bindings = <&kp LG(N5)>, <&kp LG(N6)>;
    ```
    В этом случае сначала будет отправлен `LG(N5)`, и через 5 мс — `LG(N6)`.
    > [!WARNING]
-   > Не включайте ничего, кроме `&kp` в `bindings`; любые другие устройства будут игнорироваться.
+   > Не включайте ничего, кроме `&kp` в `bindings`; любые другие девайсы будут игнорироваться.
 6. Добавьте новые клавиши в раскладку в том же файле.
 7. Добавьте `&ruen_macos 1` на удаленное место в редко используемом слое. 
 8. Соберите и загрузите прошивку на клавиатуру.
@@ -282,12 +282,12 @@ Module `ruen` lets you send keycodes regardless of the active system language or
        bindings = <&kp LG(N9)>; // Ваш хоткей для переключения на русский
    };
    ```
-   Совет: Вы можете включать несколько `&kp` в список `bindings`, если нужно отправить два разных хоткея — например, один для основной машины под macOS и другой для Windows-машины, к которой вы подключаетесь через RDP:
+   Совет: Вы можете включать несколько `&kp` в список `bindings`, если нужно отправить несколько хоткеев — например, один для основной машины под macOS и другой для Windows-машины, к которой вы подключаетесь через RDP:
    ```yaml
    bindings = <&kp LG(N5)>, <&kp LG(N6)>;
    ```
    В этом случае сначала будет отправлен `LG(N5)`, а через 5 мс — `LG(N6)`.
    > [!WARNING]
-   > Не включайте ничего, кроме `&kp` в `bindings`; любые другие устройства будут игнорироваться.
+   > Не включайте ничего, кроме `&kp` в `bindings`; любые другие девайсы будут игнорироваться.
 6. Добавьте новые клавиши в раскладку в том же файле.
 7. Соберите и загрузите прошивку на клавиатуру.
