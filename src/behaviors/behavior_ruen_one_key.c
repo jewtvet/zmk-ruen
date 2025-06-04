@@ -14,6 +14,13 @@ struct behavior_ruen_one_key_config {
     char *ru_behavior_dev;
 };
 
+struct behavior_macro_config {
+    uint32_t default_wait_ms;
+    uint32_t default_tap_ms;
+    uint32_t count;
+    struct zmk_behavior_binding bindings[];
+};
+
 static int on_ruen_one_key_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
     return ZMK_BEHAVIOR_OPAQUE;
 }
