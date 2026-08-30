@@ -26,7 +26,7 @@ static int on_ruen_one_key_pressed(struct zmk_behavior_binding *binding, struct 
 }
 
 static int on_ruen_one_key_released(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
-    uint8_t wait = zmk_ruen_get_macos() ? 50 : 1;
+    uint8_t wait = zmk_ruen_get_macos() ? 55 : 1;
     bool is_eng = zmk_ruen_get_eng();
     bool need = binding->param1 != 0;
     uint32_t encoded = binding->param2;
