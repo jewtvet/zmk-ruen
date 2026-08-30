@@ -29,7 +29,7 @@ static int on_ruen_switch_pressed(struct zmk_behavior_binding *binding, struct z
 static int on_ruen_switch_released(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
     const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
     const struct behavior_ruen_switch_config *cfg = dev->config;
-    uint8_t wait = zmk_ruen_get_macos() ? 55 : 1;
+    uint8_t wait = zmk_ruen_get_macos() ? 46 : 1;
     bool is_eng = binding->param1 != 0;
     zmk_hid_keyboard_clear();
     zmk_endpoints_send_report(HID_USAGE_KEY);
